@@ -6,8 +6,9 @@ import (
 )
 
 type JobService interface {
-	Enqueue(ctx context.Context, taskName string) (string, error)
-	GetAllJobs(ctx context.Context) (output entity.Job, err error)
+	Enqueue(ctx context.Context, taskName string) (*entity.Job, error)
+	GetAllJobs(ctx context.Context) (output []*entity.Job, err error)
+	FindByID(ctx context.Context, id string) (*entity.Job, error)
 }
 
 type JobRepository interface {

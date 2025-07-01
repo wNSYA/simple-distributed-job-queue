@@ -2,6 +2,7 @@ package mutation
 
 import (
 	"context"
+	"fmt"
 	_dataloader "jobqueue/delivery/graphql/dataloader"
 	"jobqueue/delivery/graphql/resolver"
 	_interface "jobqueue/interface"
@@ -15,9 +16,14 @@ type JobMutation struct {
 }
 
 func (q JobMutation) Enqueue(ctx context.Context, args entity.Job) (*resolver.JobResolver, error) {
-	job := entity.Job{}
+	fmt.Println("from mutation/job")
+	job, err := q.jobService.Enqueue(ctx, args.Task)
+	if err != nil {
+		fmt.Printf("Failed to enqueue job: %v\n", err)
+		return nil, err
+	}
 	return &resolver.JobResolver{
-		Data:       job,
+		Data:       *job,
 		JobService: q.jobService,
 		Dataloader: q.dataloader,
 	}, nil

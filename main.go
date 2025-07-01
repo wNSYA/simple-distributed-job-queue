@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"jobqueue/config"
 	"jobqueue/delivery/graphql"
 	_dataloader "jobqueue/delivery/graphql/dataloader"
@@ -25,6 +26,7 @@ import (
 )
 
 func main() {
+	fmt.Println("from main.go")
 	setupLogger()
 	logger := logrus.New()
 	logger.SetReportCaller(true)
